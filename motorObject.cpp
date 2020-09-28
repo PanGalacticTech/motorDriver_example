@@ -1,4 +1,4 @@
-// >>>>> Motor Driver Library <<<<<<<
+// >>>>> motorObject.h Library <<<<<<<
 
 /*
 
@@ -46,68 +46,86 @@
 
 */
 
+
+
+
 #include "motorObject.h"
 
-#define PIN_A 4
-#define PIN_B 5
-#define PIN_C 6
-#define PIN_D 7
-#define PIN_S 3
 
-int directionControlPins[4] = {PIN_A, PIN_B, PIN_C, PIN_D};
+//bytes define pin outputs to control motor direction & behaviour
+#define FORWARD 0b1001
+#define REVERSE 0b0110
+#define BRAKE 0b0011
+#define OFF 0b0000
+
+// Setup
+
+void motorObject::begin() {
+  pinMode(pinA, OUTPUT);
+  pinMode(pinB, OUTPUT);
+  pinMode(pinC, OUTPUT);
+  pinMode(pinD, OUTPUT);
+  pinMode(pinS, OUTPUT);
+}
 
 
 
+// Basic Methods
+
+void forward(byte speed) {
+  
+motorObject::setDirectionPin(FORWARD);
+motorObject::setSpeed(speed);
+
+}
 
 
-#define MOTOR_DIRECTION_NORMAL 1    // 0 inverts direction control
-#define MOTOR_DIRECTION_REVERSED 0
+void backward(byte speed = 255) {
 
 
-motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
+}
 
-void setup() {
-  Serial.begin(115200);
-  motorR.begin();
+
+
+void stop() {
+
+
+
+}
+
+
+
+void brake() {
+
+
+
 }
 
 
 
 
+void setSpeed(byte speed = 255) {
 
 
 
-
-
-
-void loop() {
-
-  delay(1000);
-
-  motorR.forward(255);
-
-  Serial.println();
 }
 
 
 
-/*
+//Private
 
-  int x=bitRead(int x,2); // (reads the 2nd bit in int x)
-
-  int x=(((5) >> (2)) & 0x01);   //macro expands to this
+void motorObject::setDirectionPin(uint8_t motorDirection) {
 
 
-  int x = INPUT >> (bitshift 2)
+  for (int i = 0; i < 4; i++) {
+
+    byte a = (((motorDirection) >> (3 - i)) & 0x01);
 
 
-  0x01 is the least significant bit set, hence the decimal value is 1.
+    Serial.print(a);
 
-  0x80 is the most significant bit of an 8-bit byte set.
 
-  If it is stored
-  in a signed char (on a machine that uses 2's-complement notation
-  - as most machines you are likely to come across will),
-  it is the most negative value (decimal -128);
-  in an unsigned char, it is decimal +128.
-*/
+    digitalWrite(directionControlPins[i], a);
+  }
+
+}

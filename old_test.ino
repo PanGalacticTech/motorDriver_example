@@ -1,6 +1,14 @@
-// >>>>> Motor Driver Library <<<<<<<
-
 /*
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * // >>>>> Motor Driver Library <<<<<<<
+
+
 
      Sets up a single Drive Motor Object
 
@@ -44,7 +52,7 @@
     Anything else required to make the function work?
 
 
-*/
+
 
 #include "motorObject.h"
 
@@ -52,23 +60,26 @@
 #define PIN_B 5
 #define PIN_C 6
 #define PIN_D 7
-#define PIN_S 3
 
 int directionControlPins[4] = {PIN_A, PIN_B, PIN_C, PIN_D};
 
+#define PIN_S 9 // Must be PWM capable pin
 
+//bytes define pin outputs to control motor direction & behaviour
+#define FORWARD 0b1001
+#define REVERSE 0b0110
+#define BRAKE 0b0011
+#define OFF 0b0000
 
+#define MOTOR_DIRECTION 1    // 0 inverts direction control
 
-
-#define MOTOR_DIRECTION_NORMAL 1    // 0 inverts direction control
-#define MOTOR_DIRECTION_REVERSED 0
-
-
-motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
 
 void setup() {
   Serial.begin(115200);
-  motorR.begin();
+  pinMode(PIN_A, OUTPUT);
+  pinMode(PIN_B, OUTPUT);
+  pinMode(PIN_C, OUTPUT);
+  pinMode(PIN_D, OUTPUT);
 }
 
 
@@ -77,16 +88,33 @@ void setup() {
 
 
 
+void setDirectionPin(uint8_t motorDirection = 0b0000) {
+
+
+  for (int i = 0; i < 4; i++) {
+
+    byte a = (((motorDirection) >> (3-i)) & 0x01);
+
+ 
+    Serial.print(a);
+    
+
+    digitalWrite(directionControlPins[i], a);
+  }
+
+}
+
+
 
 
 
 void loop() {
 
-  delay(1000);
+delay(1000);
 
-  motorR.forward(255);
+setDirectionPin(OFF);
 
-  Serial.println();
+Serial.println();
 }
 
 
@@ -110,4 +138,8 @@ void loop() {
   - as most machines you are likely to come across will),
   it is the most negative value (decimal -128);
   in an unsigned char, it is decimal +128.
-*/
+
+ * 
+ * 
+ * 
+ */

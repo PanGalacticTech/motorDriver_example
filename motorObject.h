@@ -1,4 +1,4 @@
-// >>>>> Motor Driver Library <<<<<<<
+// >>>>> motorObject.h Library <<<<<<<
 
 /*
 
@@ -46,68 +46,81 @@
 
 */
 
-#include "motorObject.h"
 
-#define PIN_A 4
-#define PIN_B 5
-#define PIN_C 6
-#define PIN_D 7
-#define PIN_S 3
-
-int directionControlPins[4] = {PIN_A, PIN_B, PIN_C, PIN_D};
+#ifndef motorObject_h
+#define motorObject_h
 
 
-
-
-
-#define MOTOR_DIRECTION_NORMAL 1    // 0 inverts direction control
-#define MOTOR_DIRECTION_REVERSED 0
-
-
-motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
-
-void setup() {
-  Serial.begin(115200);
-  motorR.begin();
-}
+#if (ARDUINO >=100)
+#include <Arduino.h>
+#else
+#include <wProgram.h>
+#endif
 
 
 
 
 
 
+class motorObject
+{
+
+    // constants (set up within constructor)
+    byte pinA;
+    byte pinB;
+    byte pinC;
+    byte pinD;
+
+    byte pinS;
+
+    byte motor_direction;
+
+
+
+  public:
+
+    // Constructor
+    motorObject(byte pin_a = 4, byte pin_b = 5, byte pin_c = 6, byte pin_d = 7, byte pin_s = 3, byte polarity = 1):
+      pinA(pin_a),
+      pinB(pin_b),
+      pinC(pin_c),
+      pinD(pin_d),
+      pinS(pin_s),
+      motor_direction(polarity)
+    {
+    }
+
+    // Setup
+    void begin();
+
+    // Basic Methods
+
+    void forward(byte speed = 255);
+    void backward(byte speed = 255);
+    void stop();
+    void brake();
+    void setSpeed(byte speed = 255);   
 
 
 
 
-void loop() {
+  private:
 
-  delay(1000);
+    void setDirectionPin(uint8_t motorDirection = 0b0000);     // Defaults to off if not passed any other arguments
 
-  motorR.forward(255);
+    void setSpeedPin(byte = 255);              // Sets Speed Pin
 
-  Serial.println();
-}
-
+};
 
 
-/*
-
-  int x=bitRead(int x,2); // (reads the 2nd bit in int x)
-
-  int x=(((5) >> (2)) & 0x01);   //macro expands to this
 
 
-  int x = INPUT >> (bitshift 2)
 
 
-  0x01 is the least significant bit set, hence the decimal value is 1.
 
-  0x80 is the most significant bit of an 8-bit byte set.
 
-  If it is stored
-  in a signed char (on a machine that uses 2's-complement notation
-  - as most machines you are likely to come across will),
-  it is the most negative value (decimal -128);
-  in an unsigned char, it is decimal +128.
-*/
+
+
+
+
+#endif
