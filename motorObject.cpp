@@ -51,62 +51,118 @@
 
 #include "motorObject.h"
 
+/*
+  //bytes define pin outputs to control motor direction & behaviour
+  #define FORWARD 0b1001
+  #define REVERSE 0b0110
+  #define BRAKE 0b0011
+  #define OFF 0b0000
+*/
 
-//bytes define pin outputs to control motor direction & behaviour
-#define FORWARD 0b1001
-#define REVERSE 0b0110
-#define BRAKE 0b0011
-#define OFF 0b0000
 
 // Setup
 
-void motorObject::begin() {
-  pinMode(pinA, OUTPUT);
-  pinMode(pinB, OUTPUT);
-  pinMode(pinC, OUTPUT);
-  pinMode(pinD, OUTPUT);
+void motorObject::begin(bool monitorSerial) {
+  printSerial = monitorSerial;
+
+  for (int i = 0; i < 4; i++) {
+    pinMode( directionControlPins[i], OUTPUT);
+
+    if (printSerial) {
+      Serial.print("pinMode: Output, Pin ");
+      Serial.println(i);
+    }
+  }
+
   pinMode(pinS, OUTPUT);
+
+
+  if (printSerial) {
+
+    Serial.println("Motor: Initialized");
+  }
+
+  motorObject::brake();   // Start by applying brake
 }
+
 
 
 
 // Basic Methods
 
-void forward(byte speed) {
+void motorObject::forward(byte speed) {
+
+  if (motor_polarity) {
+    motorObject::setDirectionPin(FORWARD);
+  } else {
+    motorObject::setDirectionPin(REVERSE);
+  }
+  motorObject::setSpeed(speed);
+
+  driveState = FORWARD;
+
+  if (printSerial) {
+    Serial.println("Motor: Forwards");
+  }
+
+
+}
+
+
+void  motorObject::backward(byte speed) {
   
-motorObject::setDirectionPin(FORWARD);
-motorObject::setSpeed(speed);
+  if (motor_polarity) {
+    motorObject::setDirectionPin(REVERSE);
+  } else {
+    motorObject::setDirectionPin(FORWARD);
+  }
+  motorObject::setSpeed(speed);
 
-}
+  driveState = REVERSE;
 
-
-void backward(byte speed = 255) {
-
-
-}
-
-
-
-void stop() {
-
-
-
-}
-
-
-
-void brake() {
-
-
+  if (printSerial) {
+    Serial.println("Motor: Reverse");
+  }
 
 }
 
 
 
+void  motorObject::stop() {
 
-void setSpeed(byte speed = 255) {
+  motorObject::setDirectionPin(OFF);
+  motorObject::setSpeed(0);
 
 
+  driveState = OFF;
+
+  if (printSerial) {
+    Serial.println("Motor: Stop");
+  }
+
+}
+
+
+
+void  motorObject::brake() {
+
+  motorObject::setDirectionPin(BRAKE);
+  motorObject::setSpeed(0);
+
+  driveState = BRAKE;
+
+  if (printSerial) {
+    Serial.println("Motor: Brake");
+  }
+
+}
+
+
+
+
+void  motorObject::setSpeed(byte speed) {
+
+  analogWrite(pinS, speed);
 
 }
 
@@ -121,11 +177,15 @@ void motorObject::setDirectionPin(uint8_t motorDirection) {
 
     byte a = (((motorDirection) >> (3 - i)) & 0x01);
 
-
-    Serial.print(a);
-
+    if (printSerial) {
+      Serial.print(a);
+    }
 
     digitalWrite(directionControlPins[i], a);
+  }
+
+  if (printSerial) {
+    Serial.println();
   }
 
 }

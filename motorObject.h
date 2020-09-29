@@ -65,33 +65,21 @@
 class motorObject
 {
 
-    // constants (set up within constructor)
-    byte pinA;
-    byte pinB;
-    byte pinC;
-    byte pinD;
-
-    byte pinS;
-
-    byte motor_direction;
-
-
-
   public:
 
     // Constructor
-    motorObject(byte pin_a = 4, byte pin_b = 5, byte pin_c = 6, byte pin_d = 7, byte pin_s = 3, byte polarity = 1):
-      pinA(pin_a),
-      pinB(pin_b),
-      pinC(pin_c),
-      pinD(pin_d),
+    motorObject(byte pin_a, byte pin_b , byte pin_c, byte pin_d, byte pin_s, byte polarity):
       pinS(pin_s),
-      motor_direction(polarity)
+      motor_polarity(polarity)
     {
+      directionControlPins[0] = pin_a;
+      directionControlPins[1] = pin_b;
+      directionControlPins[2] = pin_c;
+      directionControlPins[3] = pin_d;
     }
 
     // Setup
-    void begin();
+    void begin(bool monitorSerial = false);
 
     // Basic Methods
 
@@ -99,16 +87,46 @@ class motorObject
     void backward(byte speed = 255);
     void stop();
     void brake();
-    void setSpeed(byte speed = 255);   
+    void setSpeed(byte speed = 255);
 
+    /*
+      #define FORWARD 0b1001
+      #define REVERSE 0b0110
+      #define BRAKE 0b0011
+      #define OFF 0b0000
+    */
 
+    enum driveMode
+    {
+      FORWARD = 0b1001,
+      REVERSE = 0b0110,
+      BRAKE = 0b0011,
+      OFF = 0b0000
 
+    };
+
+    int driveState; // Variable to hold current mode
 
   private:
 
+
+// Hardware Function provide interface between software functions and control of the hardware pins.
     void setDirectionPin(uint8_t motorDirection = 0b0000);     // Defaults to off if not passed any other arguments
 
     void setSpeedPin(byte = 255);              // Sets Speed Pin
+
+
+
+    byte directionControlPins[4];
+
+
+    bool printSerial;    // if true prints debug messages to serial monitor
+
+    // constants (set up within constructor)
+
+    byte pinS;    // PWM pin for speed controller
+
+    byte motor_polarity;
 
 };
 

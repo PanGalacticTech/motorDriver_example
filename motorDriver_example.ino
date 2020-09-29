@@ -54,7 +54,6 @@
 #define PIN_D 7
 #define PIN_S 3
 
-int directionControlPins[4] = {PIN_A, PIN_B, PIN_C, PIN_D};
 
 
 
@@ -63,12 +62,14 @@ int directionControlPins[4] = {PIN_A, PIN_B, PIN_C, PIN_D};
 #define MOTOR_DIRECTION_NORMAL 1    // 0 inverts direction control
 #define MOTOR_DIRECTION_REVERSED 0
 
+#define MONITOR_SERIAL_TRUE 1
+#define MONITOR_SERIAL_FALSE 0
 
 motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
 
 void setup() {
   Serial.begin(115200);
-  motorR.begin();
+  motorR.begin(MONITOR_SERIAL_TRUE);
 }
 
 
@@ -85,8 +86,15 @@ void loop() {
   delay(1000);
 
   motorR.forward(255);
+  delay(10000);
+  motorR.brake();
+  delay(2000);
+  motorR.backward();
+  delay(10000);
+  motorR.stop();
+  delay(5000);
+  
 
-  Serial.println();
 }
 
 
