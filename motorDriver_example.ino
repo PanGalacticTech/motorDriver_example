@@ -73,11 +73,11 @@
 #define MONITOR_SERIAL_FALSE 0
 
 motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
-motorObject motorL(PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_NORMAL);
+motorObject motorL(PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_REVERSED);
 
 void setup() {
   Serial.begin(115200);
-  motorR.begin(MONITOR_SERIAL_TRUE);
+ motorR.begin(MONITOR_SERIAL_FALSE);
   motorL.begin(MONITOR_SERIAL_TRUE);
 }
 
@@ -94,7 +94,7 @@ void loop() {
 
   delay(1000);
 
-  motorR.forward(255);
+ motorR.forward(255);
   motorL.forward(255);
   delay(10000);
   motorR.brake();
@@ -103,19 +103,19 @@ void loop() {
   motorR.backward();
   motorL.backward();
   delay(10000);
-  motorR.stop();
+ motorR.stop();
   motorL.stop();
   delay(5000);
-  motorR.backward();
+ motorR.backward();
   motorL.forward();
   delay(10000);
-  motorR.brake();
+ motorR.brake();
   motorL.brake();
   delay(2000);
   motorR.forward();
   motorL.backward();
   delay(10000);
-  motorR.brake();
+ motorR.brake();
   motorL.brake();
   delay(2000);
 
