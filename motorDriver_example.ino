@@ -48,12 +48,19 @@
 
 #include "motorObject.h"
 
+// Motor R pin outputs
 #define PIN_A 4
 #define PIN_B 5
 #define PIN_C 6
 #define PIN_D 7
 #define PIN_S 3
 
+// Motor L pin outputs
+#define PIN_E 8
+#define PIN_F 9
+#define PIN_G 10
+#define PIN_H 12
+#define PIN_T 11
 
 
 
@@ -66,10 +73,12 @@
 #define MONITOR_SERIAL_FALSE 0
 
 motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
+motorObject motorL(PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_NORMAL);
 
 void setup() {
   Serial.begin(115200);
   motorR.begin(MONITOR_SERIAL_TRUE);
+  motorL.begin(MONITOR_SERIAL_TRUE);
 }
 
 
@@ -86,14 +95,29 @@ void loop() {
   delay(1000);
 
   motorR.forward(255);
+  motorL.forward(255);
   delay(10000);
   motorR.brake();
+  motorL.brake();
   delay(2000);
   motorR.backward();
+  motorL.backward();
   delay(10000);
   motorR.stop();
+  motorL.stop();
   delay(5000);
-  
+  motorR.backward();
+  motorL.forward();
+  delay(10000);
+  motorR.brake();
+  motorL.brake();
+  delay(2000);
+  motorR.forward();
+  motorL.backward();
+  delay(10000);
+  motorR.brake();
+  motorL.brake();
+  delay(2000);
 
 }
 

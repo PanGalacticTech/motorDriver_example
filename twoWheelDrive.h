@@ -45,14 +45,8 @@
     calibrationArray  (for every speed value for motorR, saves a value for motorL.
 
     
-
-
-
-    
- * 
- * 
- * 
- * 
- * 
  * 
  */
+
+
+ 
