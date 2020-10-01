@@ -47,6 +47,7 @@
 */
 
 #include "motorObject.h"
+#include "twoWheelDrive.h"
 
 // Motor R pin outputs
 #define PIN_A 4
@@ -72,13 +73,19 @@
 #define MONITOR_SERIAL_TRUE 1
 #define MONITOR_SERIAL_FALSE 0
 
-motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
-motorObject motorL(PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_REVERSED);
+//motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
+//motorObject motorL(PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_REVERSED);
+
+
+twoWheelDrive twd(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_NORMAL, MOTOR_DIRECTION_NORMAL);
 
 void setup() {
   Serial.begin(115200);
- motorR.begin(MONITOR_SERIAL_FALSE);
-  motorL.begin(MONITOR_SERIAL_TRUE);
+  
+ //motorR.begin(MONITOR_SERIAL_FALSE);
+ // motorL.begin(MONITOR_SERIAL_TRUE);
+
+ twd.setup(MONITOR_SERIAL_TRUE);
 }
 
 
@@ -92,6 +99,11 @@ void setup() {
 
 void loop() {
 
+twd.driveForward();
+
+delay(10000);
+
+/*
   delay(1000);
 
  motorR.forward(255);
@@ -118,7 +130,7 @@ void loop() {
  motorR.brake();
   motorL.brake();
   delay(2000);
-
+*/
 }
 
 
