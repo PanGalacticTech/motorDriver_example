@@ -61,7 +61,7 @@
 #endif
 
 
-
+#include "motorObject.h"
 
 
 
@@ -70,23 +70,39 @@ class twoWheelDrive: public motorObject
 {
   public:
 
-    // Constructor
-    twoWheelDrive(byte Rpin_a, byte Rpin_b , byte Rpin_c, byte Rpin_d, byte Rpin_s, byte Lpin_e, byte Lpin_f, byte Lpin_g, byte Lpin_h, byte Lpin_t, byte Rpolarity, byte Lpolarity):
-      motorObject(Rpin_a, Rpin_b , Rpin_c,  Rpin_d, Rpin_s, Rpolarity),  motorObject(Lpin_e, Lpin_f, Lpin_g, Lpin_h, Lpin_t, Lpolarity)
-    {
- 
-    }
-
-// Can this be done by vector? However, even if your class already has a default constructor, you should try to use std::vector<Fred> rather than an array (arrays are evil). std::vector lets you decide to use any constructor, not just the default constructor:
-
 /*
-#include <vector>
-int main()
-{
-  std::vector<Fred> a(10, Fred(5,7));  // The 10 Fred objects in std::vector a will be initialized with Fred(5,7)
-  // ...
-}
+   // Constructor
+   twoWheelDrive(byte Rpin_a = 4, byte Rpin_b  = 5, byte Rpin_c = 6, byte Rpin_d = 7, byte Rpin_s = 3, byte Lpin_e = 8, byte Lpin_f = 9, byte Lpin_g = 10, byte Lpin_h = 12, byte Lpin_t = 11, byte Rpolarity = 1, byte Lpolarity = 0):
+ 
+      motorObject motorR(Rpin_a, Rpin_b , Rpin_c, Rpin_d, Rpin_s, Rpolarity),
+      motorObject motorL(Lpin_e, Lpin_f, Lpin_g, Lpin_h, Lpin_t, Lpolarity)
+    { 
+    }
 */
+ //Default Constructor
+
+ twoWheelDrive(byte Rpin_a = 4, byte Rpin_b  = 5, byte Rpin_c = 6, byte Rpin_d = 7, byte Rpin_s = 3, byte Lpin_e = 8, byte Lpin_f = 9, byte Lpin_g = 10, byte Lpin_h = 12, byte Lpin_t = 11, byte Rpolarity = 1, byte Lpolarity = 0);
+
+
+//motorObject constructor
+motorObject motorR;
+motorObject motorL;
+
+
+    // Can this be done by vector? However, even if your class already has a default constructor, you should try to use
+   // std::vector<Fred> rather than an array (arrays are evil).
+   //std::vector lets you decide to use any constructor, 
+   // not just the default constructor:
+
+    /*
+      #include <vector>
+      int main()
+      {
+      std::vector<Fred> a(10, Fred(5,7));  // The 10 Fred objects in std::vector a will be initialized with Fred(5,7)
+      // ...
+      }
+    */
+
 
 
     // Setup
@@ -94,18 +110,18 @@ int main()
 
 
 
-   void driveForwards(byte speed);
+    void driveForward(byte speed);
 
-   
-void driveBackwards( byte speed);
-void driveDifferential(int16_t speedR, int16_t speedL);
-void driveBrake();
-void driveOff();
-void turnRight(byte speed);
-void turnLeft(byte speed);
 
-void spinRight(byte speed);
-void spinLeft(byte speed);
+    void driveBackward( byte speed);
+    void driveDifferential(int16_t speedR, int16_t speedL);
+    void driveBrake();
+    void driveOff();
+    void turnRight(byte speed);
+    void turnLeft(byte speed);
+
+    void spinRight(byte speed);
+    void spinLeft(byte speed);
 
 
 

@@ -48,44 +48,47 @@
 */
 
 
+
+
+
 #include "twoWheelDrive.h"
 
 
 
 
-void setup(bool monitorSerial) {
+void twoWheelDrive::setup(bool monitorSerial) {
 
-  printSerial = monitorSerial;
+  motorObject::printSerial = monitorSerial;
 
   for (int i = 0; i < 4; i++) {
-    pinMode( motorR::directionControlPins[i], OUTPUT);
-    pinMode( motorL::directionControlPins[i], OUTPUT);
+    pinMode( motorR.directionControlPins[i], OUTPUT);
+    pinMode( motorL.directionControlPins[i], OUTPUT);
     if (printSerial) {
       Serial.print("pinMode: Output, Pin ");
       Serial.println(i);
     }
   }
 
-  pinMode(motorR::pinS, OUTPUT);
-  pinMode(motorL::pinT, OUTPUT);
+  pinMode(motorR.pinS, OUTPUT);
+  pinMode(motorL.pinT, OUTPUT);
 
-  if (printSerial) {
+  if (motorObject::printSerial) {
 
     Serial.println("MotorR: Initialized");
   }
 
-  motorR::brake();   // Start by applying brake
-  motorL::brake();   // Start by applying brake
+  motorR.brake();   // Start by applying brake
+  motorL.brake();   // Start by applying brake
 }
 
 
 
 
 
-void driveForward(byte speed) {
+void twoWheelDrive::driveForward(byte speed) {
 
-  motorR::forward();
-  motorL::forward();
+  motorR.forward(speed);
+  motorL.forward(speed  );
 
 
 }

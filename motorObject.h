@@ -68,7 +68,7 @@ class motorObject
   public:
 
     // Constructor
-    motorObject(byte pin_a, byte pin_b , byte pin_c, byte pin_d, byte pin_s, byte polarity):
+    motorObject(byte pin_a = 4, byte pin_b = 5, byte pin_c = 6, byte pin_d = 7, byte pin_s = 8, byte polarity = 1):
       pinS(pin_s),
       motor_polarity(polarity)
     {
@@ -77,6 +77,9 @@ class motorObject
       directionControlPins[2] = pin_c;
       directionControlPins[3] = pin_d;
     }
+
+
+
 
     // Setup
     void begin(bool monitorSerial = false);
@@ -107,24 +110,34 @@ class motorObject
 
     int driveState; // Variable to hold current mode
 
+
+    // constants (set up within constructor)
+
+    bool printSerial;    // if true prints debug messages to serial monitor
+
+    byte directionControlPins[4];
+
+    byte pinS;    // PWM pin for speed controller
+
+    byte pinT;   //2nd PWM pin for speed controller 2
+
   private:
 
 
-// Hardware Function provide interface between software functions and control of the hardware pins.
+    // Hardware Function provide interface between software functions and control of the hardware pins.
     void setDirectionPin(uint8_t motorDirection = 0b0000);     // Defaults to off if not passed any other arguments
 
     void setSpeedPin(byte = 255);              // Sets Speed Pin
 
 
 
-    byte directionControlPins[4];
 
 
-    bool printSerial;    // if true prints debug messages to serial monitor
+
 
     // constants (set up within constructor)
 
-    byte pinS;    // PWM pin for speed controller
+
 
     byte motor_polarity;
 

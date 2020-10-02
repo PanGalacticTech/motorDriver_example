@@ -45,8 +45,9 @@
 
 
 */
+//#include "motorObject.h"
 
-#include "motorObject.h"
+
 #include "twoWheelDrive.h"
 
 // Motor R pin outputs
@@ -99,13 +100,13 @@ void setup() {
 
 void loop() {
 
-twd.driveForward();
+twd.driveForward(250);
 
 delay(10000);
 
-/*
-  delay(1000);
 
+  delay(1000);
+/*
  motorR.forward(255);
   motorL.forward(255);
   delay(10000);
