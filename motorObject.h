@@ -58,7 +58,11 @@
 #endif
 
 
+#define MOTOR_DIRECTION_NORMAL 1    // 0 inverts direction control
+#define MOTOR_DIRECTION_REVERSED 0
 
+#define MONITOR_SERIAL_TRUE 1
+#define MONITOR_SERIAL_FALSE 0
 
 
 
@@ -88,6 +92,7 @@ class motorObject
 
     void forward(byte speed = 255);
     void backward(byte speed = 255);
+    void run(int16_t speed);
     void stop();
     void brake();
     void setSpeed(byte speed = 255);
@@ -119,7 +124,7 @@ class motorObject
 
     byte pinS;    // PWM pin for speed controller
 
-    byte pinT;   //2nd PWM pin for speed controller 2
+    byte pinT;   //2nd PWM pin for speed controller 2   // Not sure this is required
 
   private:
 

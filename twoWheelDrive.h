@@ -66,64 +66,58 @@
 
 
 
-class twoWheelDrive: public motorObject
-{
+//class twoWheelDrive: public motorObject {
+
+class twoWheelDrive {
+
+  private:
+
+    motorObject motorR , motorL;
+
   public:
 
-/*
-   // Constructor
-   twoWheelDrive(byte Rpin_a = 4, byte Rpin_b  = 5, byte Rpin_c = 6, byte Rpin_d = 7, byte Rpin_s = 3, byte Lpin_e = 8, byte Lpin_f = 9, byte Lpin_g = 10, byte Lpin_h = 12, byte Lpin_t = 11, byte Rpolarity = 1, byte Lpolarity = 0):
- 
-      motorObject motorR(Rpin_a, Rpin_b , Rpin_c, Rpin_d, Rpin_s, Rpolarity),
-      motorObject motorL(Lpin_e, Lpin_f, Lpin_g, Lpin_h, Lpin_t, Lpolarity)
-    { 
-    }
-*/
- //Default Constructor
 
- twoWheelDrive(byte Rpin_a = 4, byte Rpin_b  = 5, byte Rpin_c = 6, byte Rpin_d = 7, byte Rpin_s = 3, byte Lpin_e = 8, byte Lpin_f = 9, byte Lpin_g = 10, byte Lpin_h = 12, byte Lpin_t = 11, byte Rpolarity = 1, byte Lpolarity = 0);
+    // Constructor
+    twoWheelDrive(byte Rpin_a = 4, byte Rpin_b  = 5, byte Rpin_c = 6, byte Rpin_d = 7, byte Rpin_s = 3, byte Lpin_e = 8, byte Lpin_f = 9, byte Lpin_g = 10, byte Lpin_h = 12, byte Lpin_t = 11, byte Rpolarity = 1, byte Lpolarity = 0):
+      motorR(Rpin_a, Rpin_b , Rpin_c, Rpin_d, Rpin_s, Rpolarity), 
+      motorL(Lpin_e, Lpin_f, Lpin_g, Lpin_h, Lpin_t, Lpolarity)
+    {
+    };
 
 
-//motorObject constructor
-motorObject motorR;
-motorObject motorL;
 
-
-    // Can this be done by vector? However, even if your class already has a default constructor, you should try to use
-   // std::vector<Fred> rather than an array (arrays are evil).
-   //std::vector lets you decide to use any constructor, 
-   // not just the default constructor:
-
-    /*
-      #include <vector>
-      int main()
-      {
-      std::vector<Fred> a(10, Fred(5,7));  // The 10 Fred objects in std::vector a will be initialized with Fred(5,7)
-      // ...
-      }
-    */
 
 
 
     // Setup
-    void setup(bool monitorSerial = false);
+
+void setup(bool monitorSerial = 0);
 
 
 
-    void driveForward(byte speed);
+void drive(int16_t speedR = 254, int16_t speedL = 254);     // feed arguments from -254 to 255 to control each motor individually
 
+void driveForward(byte speed = 255);
 
-    void driveBackward( byte speed);
-    void driveDifferential(int16_t speedR, int16_t speedL);
-    void driveBrake();
-    void driveOff();
-    void turnRight(byte speed);
-    void turnLeft(byte speed);
+void driveBackward(byte speed = 255);
 
-    void spinRight(byte speed);
-    void spinLeft(byte speed);
+void applyBrake();
 
+void driveOff();
 
+void turnLeft(byte speed = 150, byte amount = 100);
+
+void turnRight(byte speed = 150, byte amount = 100);
+
+void reverseLeft(byte speed = 100, byte amount = 50);
+
+void reverseRight(byte speed = 100, byte amount = 50);
+
+void spinClockwise(byte speed = 200);
+
+void spinAnticlockwise(byte speed = 200);
+
+void changeSpeed(byte speed = 255);
 
 
 
@@ -132,3 +126,13 @@ motorObject motorL;
 
 
 #endif
+
+
+
+
+
+
+
+
+
+  

@@ -127,6 +127,18 @@ void  motorObject::backward(byte speed) {
 }
 
 
+void motorObject::run(int16_t speed){
+
+ if (speed > 0){
+  motorObject::forward(speed);
+ } else if ( speed < 0){
+motorObject::backward(speed);
+ }
+ 
+  
+}
+
+
 
 void  motorObject::stop() {
 

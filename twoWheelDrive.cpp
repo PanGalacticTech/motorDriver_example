@@ -52,43 +52,120 @@
 
 
 #include "twoWheelDrive.h"
+#include "motorObject.h"
 
 
 
 
 void twoWheelDrive::setup(bool monitorSerial) {
 
-  motorObject::printSerial = monitorSerial;
+motorR.begin(monitorSerial);
+motorL.begin(monitorSerial);
 
-  for (int i = 0; i < 4; i++) {
-    pinMode( motorR.directionControlPins[i], OUTPUT);
-    pinMode( motorL.directionControlPins[i], OUTPUT);
-    if (printSerial) {
-      Serial.print("pinMode: Output, Pin ");
-      Serial.println(i);
-    }
-  }
+}
 
-  pinMode(motorR.pinS, OUTPUT);
-  pinMode(motorL.pinT, OUTPUT);
 
-  if (motorObject::printSerial) {
 
-    Serial.println("MotorR: Initialized");
-  }
+void twoWheelDrive::drive(int16_t speedR, int16_t speedL){
 
-  motorR.brake();   // Start by applying brake
-  motorL.brake();   // Start by applying brake
+constrain(speedR, -254, 255);
+constrain(speedL, -254, 255);
+
+motorR.run(speedR);
+motorL.run(speedL);
+
+}
+
+
+void twoWheelDrive::driveForward(byte speed) {
+
+  motorR.forward(speed);
+  motorL.forward(speed);
+
+}
+
+
+void twoWheelDrive::driveBackward(byte speed){
+
+  motorR.backward(speed);
+  motorL.backward(speed);
+  
+}
+
+
+void twoWheelDrive::applyBrake(){
+
+ motorR.brake();
+ motorL.brake();
+  
+}
+
+
+void twoWheelDrive::driveOff(){
+
+ motorR.stop();
+ motorL.stop();
+  
+}
+
+
+
+
+void twoWheelDrive::turnLeft(byte speed, byte amount){    //top speed, // turn amount (255 = sharp, 1 = slow)
+
+twoWheelDrive::drive(speed, (speed-amount));
+  
+}
+
+
+
+void twoWheelDrive::turnRight(byte speed, byte amount){
+
+twoWheelDrive::drive((speed-amount), speed);
+  
+}
+
+
+void twoWheelDrive::reverseLeft(byte speed, byte amount){    //top speed, // turn amount (255 = sharp, 1 = slow)
+
+  motorR.backward(speed-amount);
+  motorL.backward(speed);
+  
+}
+
+void twoWheelDrive::reverseRight(byte speed, byte amount){
+
+  motorR.backward(speed);
+  motorL.backward(speed-amount);
+  
 }
 
 
 
 
 
-void twoWheelDrive::driveForward(byte speed) {
-
-  motorR.forward(speed);
-  motorL.forward(speed  );
 
 
+void twoWheelDrive::spinClockwise(byte speed){
+
+motorR.backward(speed);
+motorL.forward(speed);
+  
+}
+
+
+
+void twoWheelDrive::spinAnticlockwise(byte speed){
+
+motorR.forward(speed);
+motorL.backward(speed);
+  
+}
+
+
+void twoWheelDrive::changeSpeed(byte speed){
+
+  motorR.setSpeed(speed);
+  motorL.setSpeed(speed);
+  
 }
