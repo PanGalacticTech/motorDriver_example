@@ -74,50 +74,59 @@ class twoWheelDrive {
 
     motorObject motorR , motorL;
 
+
+
   public:
 
 
     // Constructor
     twoWheelDrive(byte Rpin_a = 4, byte Rpin_b  = 5, byte Rpin_c = 6, byte Rpin_d = 7, byte Rpin_s = 3, byte Lpin_e = 8, byte Lpin_f = 9, byte Lpin_g = 10, byte Lpin_h = 12, byte Lpin_t = 11, byte Rpolarity = 1, byte Lpolarity = 0):
-      motorR(Rpin_a, Rpin_b , Rpin_c, Rpin_d, Rpin_s, Rpolarity), 
+      motorR(Rpin_a, Rpin_b , Rpin_c, Rpin_d, Rpin_s, Rpolarity),
       motorL(Lpin_e, Lpin_f, Lpin_g, Lpin_h, Lpin_t, Lpolarity)
     {
-    };
+    }
 
 
 
+ //  int16_t steerCal = 0;   // Steering calibraton value from -100% to + 100%, 0 = No Calibration
 
 
 
     // Setup
 
-void setup(bool monitorSerial = 0);
+    void setup(bool monitorSerial = 0);
 
 
 
-void drive(int16_t speedR = 254, int16_t speedL = 254);     // feed arguments from -254 to 255 to control each motor individually
+    void drive(int16_t speedR = 255, int16_t speedL = 255);     // feed arguments from -254 to 255 to control each motor individually. cal factor is still applied
 
-void driveForward(byte speed = 255);
+    void driveForward(byte speed = 255);
 
-void driveBackward(byte speed = 255);
+    void driveBackward(byte speed = 255);
 
-void applyBrake();
+    void applyBrake();
 
-void driveOff();
+    void driveOff();
 
-void turnLeft(byte speed = 150, byte amount = 100);
+    void turnLeft(byte speed = 150, byte amount = 100);
 
-void turnRight(byte speed = 150, byte amount = 100);
+    void turnRight(byte speed = 150, byte amount = 100);
 
-void reverseLeft(byte speed = 100, byte amount = 50);
+    void reverseLeft(byte speed = 100, byte amount = 50);
 
-void reverseRight(byte speed = 100, byte amount = 50);
+    void reverseRight(byte speed = 100, byte amount = 50);
 
-void spinClockwise(byte speed = 200);
+    void spinClockwise(byte speed = 200);
 
-void spinAnticlockwise(byte speed = 200);
+    void spinAnticlockwise(byte speed = 200);
 
-void changeSpeed(byte speed = 255);
+    void changeSpeed(byte speed = 255);
+
+    int16_t calLeft(int16_t input);   // returns calibrated motor value for left motor
+
+    int16_t calRight(int16_t input);   // returns calibrated motor value for Right Motor
+
+
 
 
 
@@ -126,13 +135,3 @@ void changeSpeed(byte speed = 255);
 
 
 #endif
-
-
-
-
-
-
-
-
-
-  

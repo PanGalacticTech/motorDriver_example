@@ -97,87 +97,87 @@ void setup() {
 
 void loop() {
 
-  twd.driveForward(250);
+  twd.driveForward(255);
 
   delay(5000);
 
 
-  twd.applyBrake();
+//  twd.applyBrake();
 
   delay(2000);
 
-  twd.driveBackward(200);
+ // twd.driveBackward(200);
 
   delay(2000);
 
-  twd.applyBrake();
+//  twd.applyBrake();
 
   delay(2000);
 
 
-  twd.spinClockwise(100);
+ // twd.spinClockwise(100);
 
   delay(2000);
 
-  twd.applyBrake();
+ // twd.applyBrake();
 
 
   delay(2000);
 
-  twd.turnLeft();
+ // twd.turnLeft();
 
   delay(2000);
 
-  twd.driveForward(200);
+//  twd.driveForward(200);
 
   delay(2000);
 
-  twd.turnRight(200, 190);
+ // twd.turnRight(200, 190);
 
   delay(2000);
 
-  twd.driveForward(200);
+ /// twd.driveForward(200);
 
   delay(2000);
 
-  twd.driveOff();
+ // twd.driveOff();
 
   delay(10000);
 
-  twd.spinAnticlockwise(255);
+ // twd.spinAnticlockwise(255);
 
   delay(2000);
 
 
-  twd.applyBrake();
+ // twd.applyBrake();
 
   delay(2000);
 
-  twd.drive(50, 30);     // feed arguments from -254 to 255 to control each motor individually
+ // twd.drive(50, 30);     // feed arguments from -254 to 255 to control each motor individually
 
   delay(2000);
 
-  twd.drive(50, 70);     // feed arguments from -254 to 255 to control each motor individually
+ // twd.drive(50, 70);     // feed arguments from -254 to 255 to control each motor individually
 
   delay(2000);
 
-  twd.drive(-50, 70);
+//  twd.drive(-50, 70);
 
   delay(5000);
 
-  twd.applyBrake();
+ // twd.applyBrake();
 
   delay(2000);
 
-  twd.reverseLeft(100, 20);
+//  twd.reverseLeft(100, 20);
 
   delay(2000);
 
-  twd.reverseRight(50, 20);
+ // twd.reverseRight(50, 20);
 
   delay(2000);
 
-  twd.driveOff();
+ // twd.driveOff();
 
   delay(20000);
 
