@@ -47,12 +47,12 @@
 #define PIN_S 3        // PWM
 
 // Motor L pin outputs
-#define PIN_E 8         // Logic
-#define PIN_F 9
-#define PIN_G 10
-#define PIN_H 12
+#define PIN_E 10         // Logic
+#define PIN_F 11
+#define PIN_G 12
+#define PIN_H 13
 
-#define PIN_T 11        // PWM
+#define PIN_T 9        // PWM
 
 
 // Preset Variables (defined in motorObject.h file)
