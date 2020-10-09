@@ -54,15 +54,20 @@
 #include "twoWheelDrive.h"
 #include "motorObject.h"
 
-int16_t steerCal = 0;   // Steering calibraton value from -100% to + 100%, 0 = No Calibration
 
 
-void twoWheelDrive::setup(bool monitorSerial) {
+
+void twoWheelDrive::setup(bool monitorSerial, int16_t calibration) {
 
   motorR.begin(monitorSerial);
   motorL.begin(monitorSerial);
 
+  steerCal = calibration;
+
 }
+
+
+
 
 
 
@@ -181,13 +186,14 @@ void twoWheelDrive::changeSpeed(byte speed) {
 }
 
 
-int16_t calLeft(int16_t input) {  // Function to return a calibrated value for left & right motors
+
+int16_t twoWheelDrive::calLeft(int16_t input) {  // Function to return a calibrated value for left & right motors
 
   int16_t output;
   // If steerCal == -50
   if (steerCal < 0) {
-    steerCal = steerCal * -1;     // steerCal = 50
-    output = input * steerCal;     // speedL = 255*50 = 12750
+  //  steerCal = steerCal * -1;     // steerCal = 50
+    output = input * (100+steerCal);     // speedL = 255*50 = 12750
     output = output / 100;        // speedL = 127.5 (truncated to 127)
 
   } else {
@@ -197,10 +203,10 @@ int16_t calLeft(int16_t input) {  // Function to return a calibrated value for l
 }
 
 
-int16_t calRight(int16_t input) {
+int16_t twoWheelDrive::calRight(int16_t input) {
   int16_t output;
   if (steerCal > 0) {
-    output = input * steerCal;
+    output = input * (100-steerCal);
     output = output / 100;
   } else {
     output = input;

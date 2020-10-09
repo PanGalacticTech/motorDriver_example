@@ -64,6 +64,12 @@
 //#define MONITOR_SERIAL_FALSE 0
 
 
+
+// Calibration Variable (Set from -100 to +100 to calibrate steering. This value is written to steerCal in setup, but could be modified via other functions later to allow for self calibration
+
+#define STEERING_CALIBRATION 0  // + values turn right, - values turn left
+
+
 // Old constructors for individual motor controller
 
 //motorObject motorR(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, MOTOR_DIRECTION_NORMAL);
@@ -80,9 +86,9 @@ void setup() {
 
   Serial.begin(115200);
 
-  twd.setup(MONITOR_SERIAL_TRUE);     // Begin passes pins to arrays to work with the control structure. Boolean argument sets debug/serial test output
+  twd.setup(MONITOR_SERIAL_TRUE, STEERING_CALIBRATION);     // Begin passes pins to arrays to work with the control structure. Boolean argument sets debug/serial test output
 
-  delay(5000);
+  delay(2000);
 
 }
 

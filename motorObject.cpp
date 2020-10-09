@@ -102,7 +102,8 @@ void motorObject::forward(byte speed) {
   driveState = FORWARD;
 
   if (printSerial) {
-    Serial.println("Motor: Forwards");
+    Serial.print("Motor: Forwards, Speed: ");
+    Serial.println(speed);
   }
 
 
@@ -110,7 +111,7 @@ void motorObject::forward(byte speed) {
 
 
 void  motorObject::backward(byte speed) {
-  
+
   if (motor_polarity) {
     motorObject::setDirectionPin(REVERSE);
   } else {
@@ -121,21 +122,22 @@ void  motorObject::backward(byte speed) {
   driveState = REVERSE;
 
   if (printSerial) {
-    Serial.println("Motor: Reverse");
+    Serial.print("Motor: Reverse, Speed: ");
+    Serial.println(speed);
   }
 
 }
 
 
-void motorObject::run(int16_t speed){
+void motorObject::run(int16_t speed) {
 
- if (speed > 0){
-  motorObject::forward(speed);
- } else if ( speed < 0){
-motorObject::backward(speed);
- }
- 
-  
+  if (speed > 0) {
+    motorObject::forward(speed);
+  } else if ( speed < 0) {
+    motorObject::backward(speed);
+  }
+
+
 }
 
 

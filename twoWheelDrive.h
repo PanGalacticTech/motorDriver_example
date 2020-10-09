@@ -94,7 +94,7 @@ class twoWheelDrive {
 
     // Setup
 
-    void setup(bool monitorSerial = 0);
+    void setup(bool monitorSerial = 0, int16_t calibration = 0);
 
 
 
@@ -126,7 +126,7 @@ class twoWheelDrive {
 
     int16_t calRight(int16_t input);   // returns calibrated motor value for Right Motor
 
-
+int16_t steerCal = 0;   // Steering calibraton value from -100% to + 100%, 0 = No Calibration
 
 
 
