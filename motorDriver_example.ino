@@ -67,7 +67,7 @@
 
 // Calibration Variable (Set from -100 to +100 to calibrate steering. This value is written to steerCal in setup, but could be modified via other functions later to allow for self calibration
 
-#define STEERING_CALIBRATION 0  // + values turn right, - values turn left
+#define STEERING_CALIBRATION 10  // + values turn right, - values turn left
 
 
 // Old constructors for individual motor controller
@@ -79,6 +79,17 @@
 // New Constructor for combined two wheel drive object
 
 twoWheelDrive twd(PIN_A, PIN_B, PIN_C, PIN_D, PIN_S, PIN_E, PIN_F, PIN_G, PIN_H, PIN_T, MOTOR_DIRECTION_NORMAL, MOTOR_DIRECTION_REVERSED);    // passed 5 pins per motor + motor polarity
+
+
+
+
+
+
+// Drive Disable
+
+#define disablePin 8   // Will change later. Need a pin that can be shorted to GND to disable drive functions to make programming easier.
+
+
 
 
 
