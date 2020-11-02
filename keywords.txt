@@ -1,0 +1,33 @@
+motorObject		KEYWORD1
+
+begin		KEYWORD2
+forward			KEYWORD2
+backward		KEYWORD2
+run			KEYWORD2
+stop			KEYWORD2
+brake			KEYWORD2
+setSpeed			KEYWORD2
+setDirectionPin		KEYWORD2
+setSpeedPin		KEYWORD2
+
+
+
+twoWheelDrive		KEYWORD1
+
+
+setup			KEYWORD2
+drive			KEYWORD2
+driveForward		KEYWORD2
+driveBackward		KEYWORD2
+applyBrake		KEYWORD2
+driveOff			KEYWORD2
+turnLeft			KEYWORD2
+turnRight			KEYWORD2
+reverseLeft		KEYWORD2
+reverseRight		KEYWORD2
+spinClockwise		KEYWORD2
+spinAntiClockwise		KEYWORD2
+changeSpeed		KEYWORD2
+calLeft			KEYWORD2
+calRight			KEYWORD2
+turnRight			KEYWORD2
